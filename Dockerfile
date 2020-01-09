@@ -9,4 +9,4 @@ EXPOSE 5777
 COPY --from=BUILD /usr/src/app/target/*.jar /opt/target/
 WORKDIR /opt/target
 
-CMD ["java", "-jar", "/opt/target/app.jar", "--server.port=5777"]
+ENTRYPOINT ["java", "-jar", "/opt/target/app.jar", "--server.port=5777"]
