@@ -1,0 +1,27 @@
+name: CI
+on: [push, pull_request]
+
+jobs:
+    build-and-deploy:
+        runs-on: ubuntu-latest
+        steps:
+        - name: 'Checkout GitHub Action'
+          uses: actions/checkout@master
+
+        - name: 'Login via Azure CLI'
+          uses: Azure/docker-login@v1
+          with:
+              login-server: mitsha.azurecr.io
+              username: ${{ SECRETS.REGISTRY_USERNAME }}
+              password: ${{ SECRETS.REGISTRY_PASSWORD }}
+            
+        - name: 'Deploy to ACI'
+          uses: azure/aci-deploy-action@v1
+          with:
+              resource-group: mitsha-test
+              dns-name-label: aci-up-python-example
+              image: mitsha.azurecr.io/aci-up-python-example
+              registry-username: ${{ SECRETS.REGISTRY_USERNAME }}
+              registry-password: ${{ SECRETS.REGISTRY_PASSWORD }}
+              name: aci-up-python-example
+              ports: 80 8080  
