@@ -24,4 +24,5 @@ jobs:
               registry-username: ${{ SECRETS.REGISTRY_USERNAME }}
               registry-password: ${{ SECRETS.REGISTRY_PASSWORD }}
               name: aci-up-python-example
-              ports: 80 8080  
+              ports: 80 8080
+              location: 'west us' 
